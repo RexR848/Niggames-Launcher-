@@ -121,6 +121,22 @@
   </div>
 
   <script>
+    function checkOrientation() {
+      const orientationMessage = document.getElementById('orientation-message');
+      const mainContent = document.getElementById('main-content');
+
+      if (window.innerWidth < window.innerHeight) { // Vertical
+        orientationMessage.style.display = 'block';
+        mainContent.style.display = 'none';
+      } else { // Horizontal
+        orientationMessage.style.display = 'none';
+        mainContent.style.display = 'flex';
+      }
+    }
+
+    window.addEventListener('resize', checkOrientation);
+    checkOrientation();
+
     async function fetchServerStatus() {
       try {
         const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/${'alexxmzn2-fyn3.aternos.me'}:${17490}`);
@@ -129,7 +145,6 @@
 
           let motd = data.motd.clean;
           
-          // Verificamos si el MOTD es "Offline\nAternos" o cualquier valor que indique que el servidor está fuera de línea
           if (motd.toLowerCase() === "offline\naternos") {
             document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
             document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
