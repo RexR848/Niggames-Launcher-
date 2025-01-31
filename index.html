@@ -21,8 +21,8 @@
     }
 
     #title-img {
-      width: 50%;
-      max-width: 400px;
+      width: 60%;
+      max-width: 500px;
     }
 
     #motd {
@@ -125,47 +125,47 @@
     <a href="creditos.html">Créditos</a>
   </div>
   <div id="fullscreen-message">Niggames Launcher for Alexsafio</div>
-  <script>
 
-<script>
-  async function fetchServerStatus() {
-    try {
-      const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/alexxmzn2-fyn3.aternos.me:17490`);
-      if (!response.ok) throw new Error('Sin respuesta');
 
-      const data = await response.json();
-      
-      if (!data.online || !data.players) {
-        document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
-        document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
-        document.getElementById('motd').innerText = "MOTD no disponible o servidor fuera de línea";
-        return;
+  </body>
+
+    <script>
+      async function fetchServerStatus() {
+        try {
+          const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/alexxmzn2-fyn3.aternos.me:17490`);
+          if (!response.ok) throw new Error('Sin respuesta');
+    
+          const data = await response.json();
+          
+          if (!data.online || !data.players) {
+            document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
+            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
+            document.getElementById('motd').innerText = "MOTD no disponible o servidor fuera de línea";
+            return;
+          }
+    
+          let motd = data.motd?.clean || "Mensaje del día no disponible";
+    
+          if (motd.includes("DEDSAFIO 3 - By TheNeitorLoL")) {
+            motd = motd.replace("DEDSAFIO 3 - By TheNeitorLoL", "").trim();
+          }
+    
+          document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
+          document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
+          document.getElementById('motd').innerText = motd;
+    
+        } catch (error) {
+          document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
+          document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado</span>`;
+          document.getElementById('motd').innerText = "Mensaje del día no disponible";
+        }
       }
-
-      let motd = data.motd?.clean || "Mensaje del día no disponible";
-
-      if (motd.includes("DEDSAFIO 3 - By TheNeitorLoL")) {
-        motd = motd.replace("DEDSAFIO 3 - By TheNeitorLoL", "").trim();
-      }
-
-      document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
-      document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
-      document.getElementById('motd').innerText = motd;
-
-    } catch (error) {
-      document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
-      document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado</span>`;
-      document.getElementById('motd').innerText = "Mensaje del día no disponible";
-    }
-  }
-
-  setInterval(fetchServerStatus, 10000); // Actualizar cada 10 segundos
-  fetchServerStatus();
-
-  document.getElementById('connect-btn').onclick = () => {
-    window.location.href = 'minecraft://?addExternalServer=Alexsafio|AlexxMzn2-fyn3.aternos.me:17490';
-  };
-</script>
-
-</body>
+    
+      setInterval(fetchServerStatus, 10000); // Actualizar cada 10 segundos
+      fetchServerStatus();
+    
+      document.getElementById('connect-btn').onclick = () => {
+        window.location.href = 'minecraft://?addExternalServer=Alexsafio|AlexxMzn2-fyn3.aternos.me:17490';
+      };
+    </script>
 </html>
