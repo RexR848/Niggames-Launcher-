@@ -153,6 +153,12 @@ je <!DOCTYPE html>
           document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
           document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
           document.getElementById('motd').innerText = motd;
+
+          if (motd.includes("Offline\nAternos")) {
+            document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible hasta prender server';
+            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado, \npuedes unirte a la sala de espera de aternos</span>`;
+            document.getElementById('motd').innerText = "Mensaje del día no disponible hasta que el server encienda";
+          }
     
         } catch (error) {
           document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
@@ -161,7 +167,7 @@ je <!DOCTYPE html>
         }
       }
     
-      setInterval(fetchServerStatus, 10000); // Actualizar cada 10 segundos
+      setInterval(fetchServerStatus, 5000); // Actualizar cada 5 segundos
       fetchServerStatus();
     
       document.getElementById('connect-btn').onclick = () => {
