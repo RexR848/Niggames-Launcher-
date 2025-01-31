@@ -36,8 +36,12 @@
     }
 
     @keyframes motdAnimation {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.1); }
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
     }
 
     .content {
@@ -69,9 +73,13 @@
       transition: background-color 0.3s;
     }
 
-    button:hover { background-color: #45a049; }
+    button:hover {
+      background-color: #45a049;
+    }
 
-    p { font-size: 18px; }
+    p {
+      font-size: 18px;
+    }
 
     .social-links {
       margin-top: 20px;
@@ -85,45 +93,71 @@
       font-size: 14px;
     }
 
-    #fullscreen-message {
+    #orientation-message {
+      display: none;
       position: absolute;
-      bottom: 10px;
-      left: 10px;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 14px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      font-size: 20px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+
   <img id="title-img" src="titulo.png" alt="Niggames Launcher">
+
   <div id="motd">¡Bienvenido al Alexsafio!</div>
+
   <div class="content">
     <button id="connect-btn">Conectar al Servidor</button>
     <p id="player-count">Jugadores conectados: Cargando...</p>
     <p id="server-status">Estado del servidor: <span>Desconocido</span></p>
   </div>
-  <div class="social-links">
-    <a href="https://discord.gg/8r7AMg5mUh" target="_blank">Discord</a>
-    <a href="minecraft://?addExternalServer=AlexxMzn2-fyn3.aternos.me|AlexxMzn2-fyn3.aternos.me:17490" rel="noopener">Agregar a Mis Servidores</a>
-    <a href="creditos.html">Créditos</a>
-  </div>
-  <div id="fullscreen-message">Niggames Launcher for Alexsafio</div>
+
   <script>
-    function requestFullScreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) {
-        elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
+    async function fetchServerStatus() {
+      try {
+        const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/${'alexxmzn2-fyn3.aternos.me'}:${17490}`);
+        if (response.ok) {
+          const data = await response.json();
+
+          let motd = data.motd.clean;
+          
+          // Verificamos si el MOTD es "Offline\nAternos" o cualquier valor que indique que el servidor está fuera de línea
+          if (motd.toLowerCase() === "offline\naternos") {
+            document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
+            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
+            document.getElementById('motd').innerText = "MOTD no disponible o servidor fuera de línea";
+          } else {
+            if (motd.includes("DEDSAFIO 3 - By TheNeitorLoL")) {
+              motd = motd.replace("DEDSAFIO 3 - By TheNeitorLoL", "").trim();
+            }
+
+            document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
+            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
+            document.getElementById('motd').innerText = motd;
+          }
+        } else {
+          throw new Error('Sin respuesta');
+        }
+      } catch (error) {
+        document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
+        document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado</span>`;
+        document.getElementById('motd').innerText = "Mensaje del día no disponible";
       }
     }
 
-    window.onload = function() {
-      setTimeout(requestFullScreen, 500);
+    setInterval(fetchServerStatus, 5000);
+    fetchServerStatus();
+
+    document.getElementById('connect-btn').onclick = () => {
+      window.location.href = 'minecraft://connect?serverUrl=AlexxMzn2-fyn3.aternos.me&serverPort=17490';
     };
   </script>
 </body>
