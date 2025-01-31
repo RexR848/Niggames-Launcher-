@@ -146,7 +146,7 @@
 
     async function fetchServerStatus() {
       try {
-        const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/${'alexxmzn2-fyn3.aternos.me'}:${17490}`);
+        const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/alexxmzn2-fyn3.aternos.me:17490`);
         if (response.ok) {
           const data = await response.json();
 
