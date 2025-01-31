@@ -21,7 +21,7 @@
     }
 
     #title-img {
-      width: 30%;
+      width: 50%;
       max-width: 400px;
     }
 
@@ -127,60 +127,45 @@
   <div id="fullscreen-message">Niggames Launcher for Alexsafio</div>
   <script>
 
-  <script>
-    function checkOrientation() {
-      const orientationMessage = document.getElementById('orientation-message');
-      const mainContent = document.getElementById('main-content');
+<script>
+  async function fetchServerStatus() {
+    try {
+      const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/alexxmzn2-fyn3.aternos.me:17490`);
+      if (!response.ok) throw new Error('Sin respuesta');
 
-      if (window.innerWidth < window.innerHeight) { // Vertical
-        orientationMessage.style.display = 'block';
-        mainContent.style.display = 'none';
-      } else { // Horizontal
-        orientationMessage.style.display = 'none';
-        mainContent.style.display = 'flex';
+      const data = await response.json();
+      
+      if (!data.online || !data.players) {
+        document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
+        document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
+        document.getElementById('motd').innerText = "MOTD no disponible o servidor fuera de línea";
+        return;
       }
-    }
 
-    window.addEventListener('resize', checkOrientation);
-    checkOrientation();
+      let motd = data.motd?.clean || "Mensaje del día no disponible";
 
-    async function fetchServerStatus() {
-      try {
-        const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/alexxmzn2-fyn3.aternos.me:17490`);
-        if (response.ok) {
-          const data = await response.json();
-
-          let motd = data.motd.clean;
-          
-          if (motd.toLowerCase() === "offline\naternos") {
-            document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
-            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
-            document.getElementById('motd').innerText = "MOTD no disponible o servidor fuera de línea";
-          } else {
-            if (motd.includes("DEDSAFIO 3 - By TheNeitorLoL")) {
-              motd = motd.replace("DEDSAFIO 3 - By TheNeitorLoL", "").trim();
-            }
-
-            document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
-            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
-            document.getElementById('motd').innerText = motd;
-          }
-        } else {
-          throw new Error('Sin respuesta');
-        }
-      } catch (error) {
-        document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
-        document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado</span>`;
-        document.getElementById('motd').innerText = "Mensaje del día no disponible";
+      if (motd.includes("DEDSAFIO 3 - By TheNeitorLoL")) {
+        motd = motd.replace("DEDSAFIO 3 - By TheNeitorLoL", "").trim();
       }
+
+      document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
+      document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
+      document.getElementById('motd').innerText = motd;
+
+    } catch (error) {
+      document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
+      document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado</span>`;
+      document.getElementById('motd').innerText = "Mensaje del día no disponible";
     }
+  }
 
-    setInterval(fetchServerStatus, 1000);
-    fetchServerStatus();
+  setInterval(fetchServerStatus, 10000); // Actualizar cada 10 segundos
+  fetchServerStatus();
 
-    document.getElementById('connect-btn').onclick = () => {
-      window.location.href = 'minecraft://connect?serverUrl=AlexxMzn2-fyn3.aternos.me&serverPort=17490';
-    };
-  </script>
+  document.getElementById('connect-btn').onclick = () => {
+    window.location.href = 'minecraft://?addExternalServer=Alexsafio|AlexxMzn2-fyn3.aternos.me:17490';
+  };
+</script>
+
 </body>
 </html>
