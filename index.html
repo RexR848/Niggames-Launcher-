@@ -140,7 +140,7 @@
           if (!data.online || !data.players) {
             document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
             document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
-            document.getElementById('motd').innerText = "Mensaje del dia no disponible o servidor fuera de línea";
+            document.getElementById('motd').innerText = "Mensaje del dia no disponible";
             return;
           }
     
@@ -156,8 +156,8 @@
 
           if (motd.includes("Offline\nAternos")) {
             document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible hasta prender server';
-            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado.<br>puedes unirte para esperar a que el servidor encienda</span>`;
-            document.getElementById('motd').innerText = "Mensaje del día no disponible hasta que el server encienda";
+            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado.</span>`;
+            document.getElementById('motd').innerText = "Mensaje del día no disponible";
           }
     
         } catch (error) {
