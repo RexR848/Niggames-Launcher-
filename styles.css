@@ -4,7 +4,12 @@
     src: url('fonts/Minecraft.ttf') format('truetype');
 }
 
+/* Ajuste del tamaño del título para pantallas pequeñas */
 @media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem; /* Ajusta según sea necesario */
+    }
+
     /* Ajustes para pantallas más pequeñas */
     body {
         font-size: 14px;
