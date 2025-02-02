@@ -1,0 +1,257 @@
+/* Importar la fuente Minecraft */
+@font-face {
+    font-family: 'Minecraft';
+    src: url('fonts/Minecraft.ttf') format('truetype');
+}
+
+@media (max-width: 768px) {
+    /* Ajustes para pantallas más pequeñas */
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+    .container {
+        width: 100%;
+    }
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Evita el desplazamiento */
+    font-family: 'Minecraft', Arial, sans-serif;
+    background-color: #000;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeDown 1s ease-out forwards;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    left: 0;
+    right: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Fondo del juego */
+.background {
+    position: fixed;
+    top: 50px; /* Deja espacio para la barra */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 50px);
+    animation: fadeUp 1s ease-out;
+}
+
+.background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo {
+    width: 300px;
+    max-width: 100%;
+    margin-bottom: -100;
+}
+
+/* Botón JUGAR */
+.play-button {
+    background: url('btn.png') no-repeat center center;
+    background-size: contain; /* Asegúrate de que la imagen se ajuste completamente dentro del botón */
+    border: none;
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    height: 60px; /* Ajusta la altura según tus necesidades */
+    cursor: pointer;
+    padding: 0; /* Elimina cualquier relleno interno */
+    margin-top: -20px;
+    text-indent: -9999px; /* Oculta el texto sin eliminarlo */
+}
+
+
+/* Texto del pase de juego */
+.game-pass {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.game-pass span {
+    font-weight: bold;
+}
+
+/* Enlace de Créditos */
+nav ul li a.credits-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+nav ul li a.credits-link:hover {
+    color: #ddd;
+}
+
+/* Contenido de Créditos */
+.credits-content {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Overlay oscuro */
+.overlay-dark {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 20;
+}
+
+/* Contenedor del pop-up de créditos */
+.credits-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 21;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.credits-popup {
+    background-color: black;
+    color: azure;
+}
+
+.nameAng {
+    color: #ff0000;
+}
+
+.nameAng::before {
+    content: '🔥';
+    margin-right: 5px;
+}
+
+.nameRex {
+    color: #86ff79;
+}
+
+.nameRex::before {
+    content: '🗣️';
+    margin-right: 5px;
+}
+
+.nameAle {
+    color: #913dff;
+}
+
+.nameAle::before {
+    content: '🎉';
+    margin-right: 5px;
+}
+
+.nameSnt {
+    color: #0037ff;
+}
+
+.nameSnt::before {
+    content: '💀';
+    margin-right: 5px;
+}
+
+.nameNgs {
+    color: #8a0000;
+}
+
+.nameNgs::before {
+    content: '🏴';
+    margin-right: 5px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+

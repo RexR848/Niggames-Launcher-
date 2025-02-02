@@ -1,177 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Niggames Launcher</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #1e1e1e;
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    #title-img {
-      width: 60%;
-      max-width: 500px;
-    }
-
-    #motd {
-      font-size: 20px;
-      color: yellow;
-      text-align: center;
-      animation: motdAnimation 1s infinite alternate ease-in-out;
-      margin-top: 10px;
-      display: inline-block;
-      transform-origin: center;
-    }
-
-    @keyframes motdAnimation {
-      0% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(1.1);
-      }
-    }
-
-    .content {
-      text-align: center;
-      padding: 20px;
-      background-color: #333;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      width: 80%;
-      max-width: 600px;
-      margin-top: 50px;
-      opacity: 0;
-      animation: fadeInUp 1s forwards 1.5s;
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    p {
-      font-size: 18px;
-    }
-
-    .social-links {
-      margin-top: 20px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .social-links a {
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    #orientation-message {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      border-radius: 10px;
-      color: white;
-      font-size: 20px;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Launcher</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <img id="title-img" src="titulo.png" alt="Niggames Launcher">
-
-  <div id="motd">¡Bienvenido al Alexsafio!</div>
-
-  <div class="content">
-    <button id="connect-btn">Conectar al Servidor</button>
-    <p id="player-count">Jugadores conectados: Cargando...</p>
-    <p id="server-status">Estado del servidor: <span>Desconocido</span></p>
-  </div>
-<div class="social-links">
-    <a href="https://discord.gg/8r7AMg5mUh" target="_blank">Discord</a>
-    <a href="minecraft://?addExternalServer=AlexxMzn2-fyn3.aternos.me|AlexxMzn2-fyn3.aternos.me:17490" rel="noopener">Agregar a Mis Servidores</a>
-    <a href="creditos.html">Créditos</a>
-  </div>
-  <div id="fullscreen-message">Niggames Launcher for Alexsafio</div>
-
-
-  </body>
-
-    <script>
-      async function fetchServerStatus() {
-        try {
-          const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/alexxmzn2-fyn3.aternos.me:17490`);
-          if (!response.ok) throw new Error('Sin respuesta');
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Recursos</a></li>
+                <li><a href="#">Comunidad</a></li>
+                <li><a href="#">Cambios</a></li>
+                <li><a href="#">Dedciclopedia</a></li>
+                <li><a href="#">Tickets</a></li>
+                <li><a href="#">Información</a></li>
+                <li><a href="#" class="credits-link">Créditos</a></li>
+            </ul>
+        </nav>
+    </header>
     
-          const data = await response.json();
-          
-          if (!data.online || !data.players) {
-            document.getElementById('player-count').innerText = 'Jugadores conectados: 0';
-            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado</span>`;
-            document.getElementById('motd').innerText = "Mensaje del dia no disponible";
-            return;
-          }
-    
-          let motd = data.motd?.clean || "Mensaje del día no disponible";
-    
-          if (motd.includes("DEDSAFIO 3 - By TheNeitorLoL")) {
-            motd = motd.replace("DEDSAFIO 3 - By TheNeitorLoL", "").trim();
-          }
-    
-          document.getElementById('player-count').innerText = `Jugadores conectados: ${data.players.online}`;
-          document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #4CAF50;">Encendido</span>`;
-          document.getElementById('motd').innerText = motd;
+    <main>
+        <div class="background">
+            <img src="background.jpg" alt="Minecraft Background">
+            <div class="overlay">
+                <img src="minecraft_logo.png" alt="Minecraft Logo" class="logo">
+                <button class="play-button">JUGAR</button>
+                <p class="game-pass">Incluido con <span>PC GAME PASS</span></p>
+            </div>
+        </div>
 
-          if (motd.includes("Offline\nAternos")) {
-            document.getElementById('player-count').innerText = 'Jugadores conectados: 0 ';
-            document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Desconectado.</span>`;
-            document.getElementById('motd').innerText = "Mensaje del día no disponible";
-          }
-    
-        } catch (error) {
-          document.getElementById('player-count').innerText = 'Jugadores conectados: No disponible';
-          document.getElementById('server-status').innerHTML = `Estado del servidor: <span style="color: #F44336;">Apagado</span>`;
-          document.getElementById('motd').innerText = "Mensaje del día no disponible";
-        }
-      }
-    
-      setInterval(fetchServerStatus, 5000); // Actualizar cada 5 segundos
-      fetchServerStatus();
-    
-      document.getElementById('connect-btn').onclick = () => {
-        window.location.href = 'minecraft://connect?serverUrl=AlexxMzn2-fyn3.aternos.me&serverPort=17490';
-      };
-    </script>
+        <!-- Overlay oscuro -->
+        <div class="overlay-dark"></div>
+
+        <!-- Contenedor del pop-up de créditos -->
+        <div class="credits-popup">
+            <h1>Créditos - Nombre de discord</h1>
+            <p>Codigo del Launcher: <a href="https://discord.gg/XgTcsTgCwD" class="nameAng">AngeldFire2</a></p>
+            <p>Diseño y Programación del server: <a href="https://www.youtube.com/@Rex84" class="nameRex">Rex</a></p>
+            <p>Dueño del servidor y idea original: <a href="https://discord.gg/XgTcsTgCwD" class="nameAle">Alex</a></p>
+            <p>ayuda del servidor: <a href="https://discord.gg/XgTcsTgCwD" class="nameSnt">Santi</a></p>
+            <h1>Estudios en colaboracion:</h1>
+            <p>-<a href="https://discord.gg/XgTcsTgCwD" class="nameNgs">Niggames</a></p>
+            <p>muchas gracias a todos por jugar</p>
+            <a href="#" class="close-btn">Cerrar</a>
+        </div>
+        
+    </main>
+    <script src="script.js"></script>
+</body>
 </html>
