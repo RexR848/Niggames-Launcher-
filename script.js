@@ -64,7 +64,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Llamar a la función al cargar la página
-    window.onload = activarPantallaCompleta;
+    // Llamar a la función cuando el usuario haga clic en cualquier lugar de la página
+    document.addEventListener('click', activarPantallaCompleta);
+
+        // Verificar y forzar orientación horizontal
+    function verificarOrientacion() {
+        if (window.innerHeight > window.innerWidth) {
+            alert('Por favor, rota tu dispositivo a modo horizontal para una mejor experiencia.');
+        }
+    }
+
+    window.addEventListener('resize', verificarOrientacion);
+    verificarOrientacion();
+
 
 });
