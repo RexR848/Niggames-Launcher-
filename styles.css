@@ -130,8 +130,8 @@ nav ul li a {
     background: url('btn.png') no-repeat center center;
     background-size: contain; /* Asegúrate de que la imagen se ajuste completamente dentro del botón */
     border: none;
-    width: 200px; /* Ajusta el ancho según tus necesidades */
-    height: 60px; /* Ajusta la altura según tus necesidades */
+    width: 400px; /* Ajusta el ancho según tus necesidades */
+    height: 120px; /* Ajusta la altura según tus necesidades */
     cursor: pointer;
     padding: 0; /* Elimina cualquier relleno interno */
     margin-top: -20px;
