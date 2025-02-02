@@ -29,10 +29,42 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+        // Forzar orientación horizontal
+    if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(function(error) {
+            console.log('Error al bloquear la orientación: ', error);
+        });
+    } else {
+        window.addEventListener('resize', function() {
+            if (window.innerHeight > window.innerWidth) {
+                alert('Por favor, rota tu dispositivo a modo horizontal');
+            }
+        });
+    }
+
+
     if (overlayDark) {
         overlayDark.addEventListener('click', function() {
             overlayDark.style.display = 'none';
             creditsPopup.style.display = 'none';
         });
     }
+
+    // Activar modo de pantalla completa
+    function activarPantallaCompleta() {
+        let elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { // Firefox
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { // Chrome, Safari y Opera
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { // IE/Edge
+            elem.msRequestFullscreen();
+        }
+    }
+
+    // Llamar a la función al cargar la página
+    window.onload = activarPantallaCompleta;
+
 });
