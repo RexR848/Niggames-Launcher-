@@ -5,9 +5,11 @@
 }
 
 /* Ajuste del tamaño del título para pantallas pequeñas */
+/* Ajuste del tamaño del título para pantallas pequeñas */
 @media (max-width: 768px) {
     h1 {
         font-size: 1.5rem; /* Ajusta según sea necesario */
+        font-family: 'NombreDeTuFuente', sans-serif; /* Asegúrate de que la fuente está definida */
     }
 
     /* Ajustes para pantallas más pequeñas */
@@ -19,6 +21,9 @@
         width: 100%;
     }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 
 
 html, body {
