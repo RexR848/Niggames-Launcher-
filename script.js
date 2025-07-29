@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const playButton = document.querySelector(".play-button");
     if (playButton) {
         playButton.addEventListener("click", function() {
-            window.location.href = 'minecraft://connect?serverUrl=AlexxMzn2-fyn3.aternos.me&serverPort=17490'
+            window.location.href = 'minecraft://connect?serverUrl=causafio01.aternos.me&serverPort=44568'
         });
     }
 
